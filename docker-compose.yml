@@ -1,0 +1,18 @@
+version: "3.9"
+
+services:
+    backend:
+        build:
+            context: ./obp-backend
+        container_name: obp-backend
+        ports:
+            - "8000:8000"
+        command: uvicorn app.main:app --host 0.0.0.0 --port 8000 --reload
+
+    frontend:
+        build:
+            context: ./obp-frontend
+        container_name: obp-frontend
+        ports:
+            - "8501:8501"
+        command: streamlit run dashboard.py --server.port=8501 --server.enableCORS=false
